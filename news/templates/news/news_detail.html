@@ -5,35 +5,11 @@
 {% block content %}
     <div class="mb-4">
         <h2>{{ news_item.title }}</h2>
+        {% if news_item.image %}
+            <img src="{{ news_item.image.url }}" class="img-fluid mb-3" alt="{{ news_item.title }}">
+        {% endif %}
         <p class="text-muted">Автор: {{ news_item.author }} | Опубликовано: {{ news_item.published_at }}</p>
         <p><strong>Категория:</strong> {{ news_item.category.name }}</p>
         <p>{{ news_item.content }}</p>
     </div>
-
-    <div class="comments-section">
-        <h3>Комментарии</h3>
-        <ul class="list-unstyled">
-            {% for comment in comments %}
-                <li class="mb-3">
-                    <p><strong>{{ comment.author }}</strong> ({{ comment.created_at|date:"d M Y H:i" }})</p>
-                    <p>{{ comment.content }}</p>
-                </li>
-            {% empty %}
-                <li>Комментариев пока нет. Будьте первым!</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    {% if user.is_authenticated %}
-        <div class="comment-form mt-4">
-            <h4>Оставить комментарий</h4>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Добавить комментарий</button>
-            </form>
-        </div>
-    {% else %}
-        <p>Вы должны войти в систему, чтобы оставить комментарий.</p>
-    {% endif %}
 {% endblock %}
