@@ -1,0 +1,22 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Новости категории: {{ category.name }}{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">Новости категории: {{ category.name }}</h2>
+    <div class="row">
+        {% for item in news %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text text-muted">{{ item.published_at }}</p>
+                        <p class="card-text">{{ item.content|truncatechars:100 }}</p>
+                        <a href="{% url 'news:news_detail' item.id %}" class="btn btn-primary">Читать дальше</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'news:news_list' %}" class="btn btn-secondary mt-3">Вернуться ко всем новостям</a>
+{% endblock %}
