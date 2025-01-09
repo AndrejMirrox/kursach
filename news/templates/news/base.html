@@ -9,10 +9,17 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header class="bg-primary text-white py-3">
+    <header class="bg-dark text-white py-3">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h3">Новостной портал</h1>
-            <nav>
+            <div class="d-md-none" onclick="openMenu();">
+                <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 18L20 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4 12L20 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4 6L20 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <h1 class="fs-3 fs-md-2 fs-lg-1">Новостной портал</h1>
+            <nav class="d-none d-md-block">
                 <ul class="nav">
                     <li class="nav-item"><a class="nav-link text-white" href="{% url 'news:news_list' %}">Главная</a></li>
                     {% for category in categories %}
@@ -20,9 +27,9 @@
                     {% endfor %}
                 </ul>
             </nav>
-            <div>
+            <div style="display: flex; align-items: center;">
                 {% if user.is_authenticated %}
-                    <span class="text-white me-3">Привет, {{ user.username }}</span>
+                    <span class="d-none d-md-block text-white me-3">Привет, {{ user.username }}</span>
                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-light btn-sm">Выйти</button>
@@ -49,3 +56,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+ 
